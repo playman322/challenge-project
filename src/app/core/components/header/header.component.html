@@ -1,0 +1,15 @@
+<p-toolbar [style]="{'border-left': 'none', 'border-right': 'none', 'border-top': 'none', 'border-radius': 0, 'padding': '1rem'}">
+    <img
+      src="./assets/logo.png"
+      height="40"
+      class="navbar-icon cursor-pointer"
+      alt="Pronet"
+      routerLink="/list"
+      [ngStyle]="(currentTheme$ | async) === Theme.Light ? null : {'filter': 'invert(1) hue-rotate(150deg)'}"
+    />
+    <i
+      style="font-size: 1.5rem; cursor: pointer"
+      (click)="toggleTheme()"
+      [ngClass]="(currentTheme$ | async) === Theme.Light ? 'pi pi-moon' : 'pi pi-sun'"
+    ></i>
+</p-toolbar>

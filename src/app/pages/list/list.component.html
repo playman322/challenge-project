@@ -1,0 +1,7 @@
+<p-autoComplete [(ngModel)]="query"
+                [suggestions]="suggestions$ | async"
+                (completeMethod)="onChange($event)"
+                (onKeyUp)="onKeyUp($event)"
+                (onDropdownClick)="search()">
+</p-autoComplete>
+<ng-container ></ng-container>

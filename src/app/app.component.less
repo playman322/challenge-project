@@ -1,0 +1,22 @@
+@xl: 1440px;
+@mobile: 370px;
+
+@media (min-width: @xl) {
+  .page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh - 2;
+
+    padding-left: 10rem;
+    padding-right: 10rem;
+  }
+
+  .page-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+
