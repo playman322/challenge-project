@@ -1,12 +1,18 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { AutoCompleteModule } from "primeng/autocomplete";
-import { AppStateSelectors } from "../../store/app-state/app-state.selectors";
+import { ChangeDetectionStrategy, Component, inject, ViewChild } from '@angular/core';
+import { AutoComplete, AutoCompleteModule } from "primeng/autocomplete";
+import { AppStateSelectors, selectMovies } from "../../store/app-state/app-state.selectors";
 import { Store } from "@ngrx/store";
 import { AppStateActions } from "../../store/app-state/app-state.actions";
 import { Router } from "@angular/router";
 import { KeyName } from "../../models/keyboard-navigation.model";
-import { AsyncPipe } from "@angular/common";
+import { AsyncPipe, NgClass, NgForOf, NgIf } from "@angular/common";
 import { FormsModule } from "@angular/forms";
+import { DataViewModule } from "primeng/dataview";
+import { RatingModule } from "primeng/rating";
+import { TagModule } from "primeng/tag";
+import { ButtonModule } from "primeng/button";
+import { Theme } from "../../models/theme.model";
+import { CardModule } from "primeng/card";
 
 @Component({
   selector: 'app-list',
@@ -14,7 +20,15 @@ import { FormsModule } from "@angular/forms";
   imports: [
     AutoCompleteModule,
     AsyncPipe,
-    FormsModule
+    FormsModule,
+    DataViewModule,
+    NgClass,
+    RatingModule,
+    TagModule,
+    NgIf,
+    NgForOf,
+    ButtonModule,
+    CardModule
   ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.less',
@@ -23,13 +37,15 @@ import { FormsModule } from "@angular/forms";
 export class ListComponent {
   private store = inject(Store);
   private router = inject(Router);
-
+  protected readonly Theme = Theme;
 
   query = '';
-  suggestions$ = this.store.select(AppStateSelectors.selectSuggestions);
+  movies$ = this.store.select(AppStateSelectors.selectMovies);
+
+  @ViewChild('autoComplete') autoComplete!: AutoComplete;
 
   onChange({ query }: { query: string }): void {
-    this.store.dispatch(AppStateActions.SearchSuggestions({ payload: query }));
+    this.store.dispatch(AppStateActions.SearchMovies({ payload: query }));
   }
 
   onKeyUp(event: KeyboardEvent): void {
@@ -43,7 +59,11 @@ export class ListComponent {
       return;
     }
 
-    this.router.navigateByUrl('/details');
-    // this.store.dispatch(AppStateActions.SearchData({ payload: this.query }));
+    this.store.dispatch(AppStateActions.SearchMovies({ payload: this.query }));
   }
+
+  focusAutoComplete() {
+    this.autoComplete.inputEL!.nativeElement.focus();
+  }
+
 }

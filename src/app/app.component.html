@@ -1,6 +1,6 @@
 <div class="page-container">
-  <app-header></app-header>
-  <app-navbar class="absolute bottom-0 w-full"></app-navbar>
+  <app-header class="block"></app-header>
+  <app-navbar class="fixed bottom-0 w-full z-2"></app-navbar>
   @if (isLoaded$) {
     <router-outlet></router-outlet>
   } @else {

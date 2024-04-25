@@ -1,7 +1,40 @@
-<p-autoComplete [(ngModel)]="query"
-                [suggestions]="suggestions$ | async"
-                (completeMethod)="onChange($event)"
-                (onKeyUp)="onKeyUp($event)"
-                (onDropdownClick)="search()">
-</p-autoComplete>
-<ng-container ></ng-container>
+<div class="flex flex-wrap w-full justify-content-center align-items-center flex-column">
+    <p-autoComplete #autoComplete
+                    class="m-4"
+                    [(ngModel)]="query"
+                    (onKeyUp)="onKeyUp($event)"
+                    (onDropdownClick)="search()"
+    >
+    </p-autoComplete>
+
+    <ng-container *ngIf="movies$ | async as movies">
+        <p-dataView *ngIf="movies.length; else elseBlock" #dv [value]="movies" [rows]="7" [paginator]="true" class="w-full mb-7">
+            <ng-template let-movies pTemplate="list">
+                <div class="grid grid-nogutter">
+                    <div class="col-12" *ngFor="let movie of movies; let first = first">
+                        <div class="flex flex-row align-items-center p-3 gap-3" [ngClass]="{ 'border-top-1 surface-border': !first }">
+                            <img *ngIf="movie.thumbnail" class="w-2 max-w-4rem shadow-2 block xl:block mx-auto border-round" [src]="'https://image.tmdb.org/t/p/w200' + movie.thumbnail" [alt]="movie.name" />
+                            <div class="flex flex-row justify-content-between align-items-start flex-1 gap-2">
+                                <div class="flex flex-column align-items-start gap-1">
+                                    <b>{{ movie.title }}</b>
+                                    <span>{{ movie.release }}</span>
+                                    <i>{{ movie.overview }}</i>
+                                </div>
+                                <i class="pi pi-heart align-self-center"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </p-dataView>
+        <ng-template #elseBlock>
+            <p-card class="card mt-8 md:w-5 cursor-pointer"
+                    (click)="focusAutoComplete()">
+                <div class="flex justify-content-center align-items-center gap-4">
+                    <i class="pi pi-search text-4xl"></i>
+                    <p class="m-0">Use Search Bar to find movies!</p>
+                </div>
+            </p-card>
+        </ng-template>
+    </ng-container>
+</div>

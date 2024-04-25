@@ -8,7 +8,7 @@ const initialState: AppState = {
   isLoaded: false,
   data: [],
   error: null,
-  suggestions: [],
+  movies: [],
   theme: Theme.Light,
   isDesktop: false,
 } as AppState;
@@ -22,18 +22,18 @@ const reducer = createReducer(
       error: payload
     };
   }),
-  on(AppStateActions.SearchSuggestions, state => {
+  on(AppStateActions.SearchMovies, state => {
     return {
       ...state,
     };
   }),
-  on(AppStateActions.SearchSuggestionSuccess, (state, { payload }) => {
+  on(AppStateActions.SearchMoviesSuccess, (state, { payload }) => {
     return {
       ...state,
-      suggestions: payload
+      movies: payload
     };
   }),
-  on(AppStateActions.SearchSuggestionError, (state, { payload }) => {
+  on(AppStateActions.SearchMoviesError, (state, { payload }) => {
     return {
       ...state,
       error: payload

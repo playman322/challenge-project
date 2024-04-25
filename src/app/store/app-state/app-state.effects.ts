@@ -1,43 +1,38 @@
 import { inject, Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { catchError, debounceTime, distinct, distinctUntilChanged, map, of, switchMap, tap } from "rxjs";
+import { catchError, map, of, switchMap, tap } from "rxjs";
 import { AppStateActions } from "./app-state.actions";
-import { ApiHttpService } from "../../shared/services/api-http.service";
-import { ObjectMappingService } from "../../shared/services/mapping.service";
+import { ListService } from "../../shared/services/list.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppStateEffects {
-  private apiService = inject(ApiHttpService);
+  private listService = inject(ListService);
   actions$ = inject(Actions);
 
-  suggestionsData$ = createEffect(() =>
+  moviesData$ = createEffect(() =>
     this.actions$.pipe(
-      debounceTime(500),
-      ofType(AppStateActions.SearchSuggestions),
+      ofType(AppStateActions.SearchMovies),
       switchMap(({ payload }) =>
-        this.apiService.getSearchSuggestions(payload).pipe(
-          distinct(value => {
-            console.log(value)
-            return value.title;
-          }),
-          map(({ data }) => AppStateActions.SearchSuggestionSuccess({ payload: data.map((value: any) => value.name)})),
+        this.listService.getMoviesList(payload).pipe(
+          tap(value => console.log(1, value)),
+          map((data) => AppStateActions.SearchMoviesSuccess({ payload: data })),
         )
       ),
-      catchError(error => of(AppStateActions.SearchSuggestionError({ payload: error })))
+      catchError(error => of(AppStateActions.SearchMoviesError({ payload: error })))
     )
   );
 
-  searchData$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(AppStateActions.SearchData),
-      switchMap(({ payload }) =>
-        this.apiService.getSearchData(payload).pipe(
-          map(({ data }) => AppStateActions.SearchDataSuccess({ payload: data.map((image: any) => ObjectMappingService.mapDataDTOtoImages(image)) }))
-        )
-      ),
-      catchError(error => of(AppStateActions.SearchDataError({ payload: error })))
-    )
-  );
+  // searchData$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(AppStateActions.SearchData),
+  //     switchMap(({ payload }) =>
+  //       this.apiService.getSearchData(payload).pipe(
+  //         map(({ data }) => AppStateActions.SearchDataSuccess({ payload: data.map((image: any) => ObjectMappingService.mapDataDTOtoImages(image)) }))
+  //       )
+  //     ),
+  //     catchError(error => of(AppStateActions.SearchDataError({ payload: error })))
+  //   )
+  // );
 }
