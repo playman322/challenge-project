@@ -26,7 +26,6 @@ export interface MoviesList {
   id: number;
   overview?: string;
   popularity: number;
-  language: string;
   title: string;
   thumbnail: string;
   release: string;
@@ -42,7 +41,6 @@ export interface MovieDTO extends MoviesListDTO {
   runtime: number;
   status: string;
   tagline: string;
-  production_companies: any;
 }
 
 interface Genres {
@@ -54,9 +52,9 @@ export interface Movie extends MoviesList {
   genres: string[],
   budget: string,
   revenue: string,
+  language: string;
   homepage: string,
   country: string,
-  productionCountries: any,
   voteAverage: number,
   voteCount: number
 }

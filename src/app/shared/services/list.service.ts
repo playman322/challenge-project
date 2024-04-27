@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { environment } from "../../environments/environment";
 import { map, Observable } from "rxjs";
 import { MoviesList, MoviesListResponseDTO } from "../../models/movies.model";
-import { ObjectMappingService } from "./mapping.service";
+import { MappingService } from "./mapping.service";
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class ListService {
         language: 'en-US'
       }
     }).pipe(
-      map(({ results }) => ObjectMappingService.mapMoviesDTOtoMovies(results)),
+      map(({ results }) => MappingService.mapMoviesDTOtoMovies(results)),
     );
   }
 }

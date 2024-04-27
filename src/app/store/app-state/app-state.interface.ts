@@ -1,13 +1,11 @@
 import { Theme } from "../../models/theme.model";
-import { MoviesList } from "../../models/movies.model";
+import { Movie, MoviesList } from "../../models/movies.model";
 
 export interface AppState {
   isLoaded: boolean;
-  data: any;
   error: Error | null;
-  movies: MoviesList[];
+  moviesList: MoviesList[];
+  movie: Movie;
   theme: Theme | string;
   isDesktop: boolean;
 }
-
-
