@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { catchError, map, of, switchMap, tap } from "rxjs";
+import { catchError, map, of, switchMap } from "rxjs";
 import { AppStateActions } from "./app-state.actions";
 import { ListService } from "../../shared/services/list.service";
 import { DetailsService } from "../../shared/services/details.service";
@@ -13,16 +13,15 @@ export class AppStateEffects {
   private detailsService = inject(DetailsService);
   private actions$ = inject(Actions);
 
-  moviesListData$ = createEffect(() =>
+  movieListData$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(AppStateActions.SearchMovies),
+      ofType(AppStateActions.SearchMovieList),
       switchMap(({ payload }) =>
-        this.listService.getMoviesList(payload).pipe(
-          tap(value => console.log(1, value)),
-          map((data) => AppStateActions.SearchMoviesSuccess({ payload: data })),
+        this.listService.getMovieList(payload).pipe(
+          map((data) => AppStateActions.SearchMovieListSuccess({ payload: data })),
         )
       ),
-      catchError(error => of(AppStateActions.SearchMoviesError({ payload: error })))
+      catchError(error => of(AppStateActions.SearchMovieListError({ payload: error })))
     )
   );
 

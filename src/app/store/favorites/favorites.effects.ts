@@ -10,13 +10,13 @@ export class FavoritesEffects {
   private store = inject(Store);
   private actions$ = inject(Actions);
 
-  loadFavorites$ = createEffect(() => this.actions$.pipe(
-    ofType(FavoritesActions.LoadFavorites),
-    switchMap(() =>
-      this.store.select(selectFavorites).pipe(
-        map(favorites => FavoritesActions.LoadFavoritesSuccess({ favorites })),
-        catchError(error => of(FavoritesActions.LoadFavoritesError({ error })))
-      )
-    )
-  ));
+  // loadFavorites$ = createEffect(() => this.actions$.pipe(
+  //   ofType(FavoritesActions.LoadFavorites),
+  //   switchMap(() =>
+  //     this.store.select(selectFavorites).pipe(
+  //       map(favorites => FavoritesActions.LoadFavoritesSuccess({ payload: favorites })),
+  //       catchError(error => of(FavoritesActions.LoadFavoritesError({ payload: error })))
+  //     )
+  //   )
+  // ));
 }

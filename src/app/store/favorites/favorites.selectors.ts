@@ -2,7 +2,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { FavoritesState } from "./favorites.interface";
 import { Movie } from "../../models/movies.model";
 
-export const selectFavoritesState = createFeatureSelector<FavoritesState>('favorites');
+export const selectFavoritesState = createFeatureSelector<FavoritesState>('favoritesState');
 
 export const selectFavorites = createSelector(
   selectFavoritesState,

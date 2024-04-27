@@ -1,8 +1,8 @@
 <p-toolbar [style]="{'border-left': 'none', 'border-right': 'none', 'border-bottom': 'none', 'border-radius': 0, 'justify-content': 'center' }">
   <div class="p-toolbar-group-center flex flex-wrap align-items-center justify-content-center gap-7">
-    <button class="p-link" routerLink="/list" routerLinkActive="selected"><i class="pi pi-search text-3xl"></i></button>
-    <button class="p-link" routerLink="/details" routerLinkActive="selected"><i class="pi pi-th-large text-3xl"></i></button>
-    <button class="p-link" routerLink="/favorites" routerLinkActive="selected"><i class="pi pi-heart text-3xl"></i></button>
-    <button class="p-link" routerLink="/account" routerLinkActive="selected"><i class="pi pi-user text-3xl"></i></button>
+    <button class="p-link" [routerLink]="['/list']" routerLinkActive="selected"><i class="pi pi-search text-3xl"></i></button>
+    <button class="p-link" [routerLink]="['/details', (movie$ | async)?.id]" routerLinkActive="selected"><i class="pi pi-th-large text-3xl"></i></button>
+    <button class="p-link" [routerLink]="['/favorites']" routerLinkActive="selected"><i class="pi pi-heart text-3xl"></i></button>
+    <button class="p-link" [routerLink]="['/account']" routerLinkActive="selected"><i class="pi pi-user text-3xl"></i></button>
   </div>
 </p-toolbar>

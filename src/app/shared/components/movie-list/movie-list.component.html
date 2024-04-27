@@ -1,0 +1,15 @@
+@if (movieList.length) {
+  <p-dataView [value]="movieList" [rows]="7" [paginator]="true" class="data-container flex w-full">
+    <ng-template let-movies pTemplate="list">
+      <div class="grid grid-nogutter">
+        @for (movie of movies; track movie.id; let first = $first) {
+          <div class="col-12">
+            <app-movie-card [movie]="movie"
+                            [isFirst]="!first">
+            </app-movie-card>
+          </div>
+        }
+      </div>
+    </ng-template>
+  </p-dataView>
+}

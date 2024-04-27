@@ -1,3 +1,10 @@
-<ng-container *ngIf="movie$ | async as movie">
-  <app-movie-card [movie]="movie"></app-movie-card>
-</ng-container>
+@if (movie$ | async; as movie) {
+  @if (movie.id) {
+    <app-movie-card [movie]="movie">
+    </app-movie-card>
+  } @else {
+    <div class="flex justify-content-center align-items-center">
+      <p>No details here!</p>
+    </div>
+  }
+}
