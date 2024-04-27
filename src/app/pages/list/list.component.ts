@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject, ViewChild } from '@angular/core';
 import { AutoComplete, AutoCompleteModule } from "primeng/autocomplete";
-import { AppStateSelectors, selectMovies } from "../../store/app-state/app-state.selectors";
+import { AppStateSelectors } from "../../store/app-state/app-state.selectors";
 import { Store } from "@ngrx/store";
 import { AppStateActions } from "../../store/app-state/app-state.actions";
-import { Router } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { KeyName } from "../../models/keyboard-navigation.model";
 import { AsyncPipe, NgClass, NgForOf, NgIf } from "@angular/common";
 import { FormsModule } from "@angular/forms";
@@ -13,6 +13,7 @@ import { TagModule } from "primeng/tag";
 import { ButtonModule } from "primeng/button";
 import { Theme } from "../../models/theme.model";
 import { CardModule } from "primeng/card";
+import { MovieCardComponent } from "../../shared/components/movie-card/movie-card.component";
 
 @Component({
   selector: 'app-list',
@@ -28,7 +29,9 @@ import { CardModule } from "primeng/card";
     NgIf,
     NgForOf,
     ButtonModule,
-    CardModule
+    CardModule,
+    RouterLink,
+    MovieCardComponent
   ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.less',
@@ -40,7 +43,7 @@ export class ListComponent {
   protected readonly Theme = Theme;
 
   query = '';
-  movies$ = this.store.select(AppStateSelectors.selectMovies);
+  moviesList$ = this.store.select(AppStateSelectors.selectMoviesList);
 
   @ViewChild('autoComplete') autoComplete!: AutoComplete;
 

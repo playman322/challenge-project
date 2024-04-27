@@ -2,13 +2,12 @@ import { Movie, MovieDTO, MoviesList, MoviesListDTO } from "../../models/movies.
 import { truncateString } from "../../utils/string.utils";
 import { toLocaleDateString } from "../../utils/date.utils";
 
-export class ObjectMappingService {
+export class MappingService {
   public static mapMoviesDTOtoMovies(movies: MoviesListDTO[]): MoviesList[] {
     return movies.map((movie) => ({
       id: movie.id,
       overview: truncateString(movie.overview, 50) || 'No overview',
       popularity: movie.popularity,
-      language: movie.original_language,
       title: movie.original_title,
       thumbnail: movie.poster_path,
       release: toLocaleDateString(movie.release_date)
@@ -33,5 +32,33 @@ export class ObjectMappingService {
       voteCount: movie.vote_count,
       release: toLocaleDateString(movie.release_date)
     }
+  }
+
+  public static countryMapper: { [abbreviation: string]: string } = {
+    'us': 'United States',
+    'cn': 'China',
+    'in': 'India',
+    'id': 'Indonesia',
+    'pk': 'Pakistan',
+    'br': 'Brazil',
+    'ng': 'Nigeria',
+    'bd': 'Bangladesh',
+    'mx': 'Mexico',
+    'ph': 'Philippines',
+    'vn': 'Vietnam',
+    'et': 'Ethiopia',
+    'eg': 'Egypt',
+    'cd': 'Democratic Republic of the Congo',
+    'th': 'Thailand',
+    'fr': 'France',
+    'de': 'Germany',
+    'tr': 'Turkey',
+    'gb': 'United Kingdom',
+    'it': 'Italy',
+    'ua': 'Ukraine'
+  };
+
+  public static getCountryFullName(abbreviation: string): string | undefined {
+    return this.countryMapper[abbreviation];
   }
 }

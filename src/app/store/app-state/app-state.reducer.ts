@@ -3,49 +3,60 @@ import { ActionReducer } from '@ngrx/store/src/models';
 import { AppState } from "./app-state.interface";
 import { AppStateActions } from "./app-state.actions";
 import { Theme } from "../../models/theme.model";
+import { Movie } from "../../models/movies.model";
 
 const initialState: AppState = {
   isLoaded: false,
   data: [],
   error: null,
-  movies: [],
+  moviesList: [],
+  movie: {} as Movie,
   theme: Theme.Light,
   isDesktop: false,
 } as AppState;
 
 const reducer = createReducer(
   initialState,
-  on(AppStateActions.SearchDataError, (state, { payload }) => {
-    return {
-      ...state,
-      isLoaded: false,
-      error: payload
-    };
-  }),
-  on(AppStateActions.SearchMovies, state => {
-    return {
-      ...state,
-    };
-  }),
-  on(AppStateActions.SearchMoviesSuccess, (state, { payload }) => {
-    return {
-      ...state,
-      movies: payload
-    };
-  }),
-  on(AppStateActions.SearchMoviesError, (state, { payload }) => {
-    return {
-      ...state,
-      error: payload
-    };
-  }),
-  on(AppStateActions.SearchData, state => {
+  on(AppStateActions.SearchMovies, (state): AppState => {
     return {
       ...state,
       isLoaded: false
     };
   }),
-  on(AppStateActions.ChangeTheme, (state, { payload }) => {
+  on(AppStateActions.SearchMoviesSuccess, (state, { payload }): AppState => {
+    return {
+      ...state,
+      moviesList: payload
+    };
+  }),
+  on(AppStateActions.SearchMoviesError, (state, { payload }): AppState => {
+    return {
+      ...state,
+      error: payload,
+      isLoaded: true
+    };
+  }),
+  on(AppStateActions.GetMovie, (state): AppState => {
+    return {
+      ...state,
+      isLoaded: false
+    };
+  }),
+  on(AppStateActions.GetMovieSuccess, (state, { payload }): AppState => {
+    return {
+      ...state,
+      movie: payload,
+      isLoaded: true
+    };
+  }),
+  on(AppStateActions.GetMovieError, (state, { payload }): AppState => {
+    return {
+      ...state,
+      error: payload,
+      isLoaded: true
+    };
+  }),
+  on(AppStateActions.ChangeTheme, (state, { payload }): AppState => {
     return {
       ...state,
       theme: payload

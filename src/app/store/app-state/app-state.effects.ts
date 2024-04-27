@@ -3,15 +3,17 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, map, of, switchMap, tap } from "rxjs";
 import { AppStateActions } from "./app-state.actions";
 import { ListService } from "../../shared/services/list.service";
+import { DetailsService } from "../../shared/services/details.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppStateEffects {
   private listService = inject(ListService);
-  actions$ = inject(Actions);
+  private detailsService = inject(DetailsService);
+  private actions$ = inject(Actions);
 
-  moviesData$ = createEffect(() =>
+  moviesListData$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AppStateActions.SearchMovies),
       switchMap(({ payload }) =>
@@ -24,15 +26,15 @@ export class AppStateEffects {
     )
   );
 
-  // searchData$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(AppStateActions.SearchData),
-  //     switchMap(({ payload }) =>
-  //       this.apiService.getSearchData(payload).pipe(
-  //         map(({ data }) => AppStateActions.SearchDataSuccess({ payload: data.map((image: any) => ObjectMappingService.mapDataDTOtoImages(image)) }))
-  //       )
-  //     ),
-  //     catchError(error => of(AppStateActions.SearchDataError({ payload: error })))
-  //   )
-  // );
+  movieData$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AppStateActions.GetMovie),
+      switchMap(({ payload }) =>
+        this.detailsService.getMovie(payload).pipe(
+          map((data) => AppStateActions.GetMovieSuccess({ payload: data }))
+        )
+      ),
+      catchError(error => of(AppStateActions.GetMovieError({ payload: error })))
+    )
+  );
 }

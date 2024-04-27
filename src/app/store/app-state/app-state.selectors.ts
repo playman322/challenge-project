@@ -8,14 +8,14 @@ export const selectIsAppLoaded = createSelector(
   (state: AppState) => state.isLoaded
 );
 
-export const selectAppData = createSelector(
+export const selectMoviesList = createSelector(
   selectAppState,
-  (state: AppState) => state.data
+  (state: AppState) => state.moviesList
 );
 
-export const selectMovies = createSelector(
+export const selectMovie = createSelector(
   selectAppState,
-  (state: AppState) => state.movies
+  (state: AppState) => state.movie
 );
 
 export const selectTheme = createSelector(
@@ -25,7 +25,7 @@ export const selectTheme = createSelector(
 
 export const AppStateSelectors = {
   selectIsAppLoaded,
-  selectAppData,
-  selectMovies,
+  selectMoviesList,
+  selectMovie,
   selectTheme
 }
