@@ -1,18 +1,36 @@
-<div class="flex flex-row align-items-center p-3 gap-3" [ngClass]="{ 'border-top-1 surface-border': isFirst }">
-  <img *ngIf="movie.thumbnail" class="w-2 max-w-4rem shadow-2 block xl:block mx-auto border-round"
-       [src]="'https://image.tmdb.org/t/p/w200' + movie.thumbnail" [alt]="movie.title"/>
-  <div class="flex flex-row justify-content-between align-items-start flex-1 gap-2">
-    <div class="flex flex-column align-items-start gap-1">
+<div class="flex flex-row align-items-center p-3 gap-3"
+     [ngClass]="{ 'border-top-1 surface-border': isFirst, 'flex-column mb-3': isDetailsPage }"
+>
+  @if (movie.thumbnail) {
+    <img class="shadow-2 block xl:block mx-auto border-round"
+         [src]="environment.imageBaseUrl + movie.thumbnail"
+         [alt]="movie.title"
+         [ngClass]="{ 'w-2 max-w-4rem': !isDetailsPage }"
+    />
+  }
+
+  <div class="flex flex-row justify-content-between align-items-start flex-1 gap-2"
+       [ngClass]="{ 'indent-bottom': isDetailsPage }"
+  >
+    <div class="flex flex-column align-items-start gap-1"
+         [routerLink]="['/details', movie.id]">
       <b>{{ movie.title }}</b>
       <span>{{ movie.release }}</span>
-      <span *ngIf="movie.budget">Budget: {{ movie.budget }}</span>
-      <span *ngIf="movie.revenue">Revenue: {{ movie.revenue }}</span>
-      <span *ngIf="movie.genres">Genres: {{ movie.genres.join(", ") }}</span>
-      <span *ngIf="movie.language">Language: {{ getCountryFullName(movie.language) }}</span>
-      <span *ngIf="movie.voteAverage">Rating: {{ movie.voteAverage }}</span>
+      @if (isDetailsPage) {
+        <span>Budget: {{ movie.budget }}</span>
+        <span>Revenue: {{ movie.revenue }}</span>
+        <span>Genres: {{ movie.genres }}</span>
+        <span>Language: {{ movie.language | languageMapper }}</span>
+        <span>Rating: {{ movie.voteAverage }}</span>
+        <a [href]="movie.homepage" target="_blank" class="link">Homepage</a>
+      }
       <span>Overview: <i>`{{ movie.overview }}`</i></span>
-      <a *ngIf="movie.homepage" href="{{ movie.homepage }}">Homepage</a>
     </div>
-    <i class="pi pi-heart align-self-center"></i>
+    @if (!isDetailsPage) {
+      <i class="pi pi-heart-fill align-self-center"
+         [ngClass]="{'text-red-500': isInFavorites(movie)}"
+         (click)="onFavoritesClick()">
+      </i>
+    }
   </div>
 </div>

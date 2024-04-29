@@ -1,33 +1,28 @@
 <div class="flex flex-wrap w-full justify-content-center align-items-center flex-column">
-    <p-autoComplete #autoComplete
-                    class="m-4"
-                    [(ngModel)]="query"
-                    (onKeyUp)="onKeyUp($event)"
-                    (onDropdownClick)="search()"
-    >
-    </p-autoComplete>
+  <p-autoComplete #autoComplete
+                  class="m-4"
+                  [suggestions]="recentSearches"
+                  [(ngModel)]="query"
+                  (keyup.enter)="onKeyUp()"
+                  (onSelect)="search()"
+                  (completeMethod)="showRecentSearches()"
+  >
+  </p-autoComplete>
 
-    <ng-container *ngIf="moviesList$ | async as moviesList">
-        <p-dataView *ngIf="moviesList.length; else elseBlock" #dv [value]="moviesList" [rows]="7" [paginator]="true" class="w-full mb-7">
-            <ng-template let-movies pTemplate="list">
-                <div class="grid grid-nogutter">
-                    <div class="col-12" *ngFor="let movie of movies; let first = first">
-                        <app-movie-card [movie]="movie"
-                                        [isFirst]="!first"
-                                        [routerLink]="['/details', movie.id]">
-                        </app-movie-card>
-                    </div>
-                </div>
-            </ng-template>
-        </p-dataView>
-        <ng-template #elseBlock>
-            <p-card class="card mt-8 md:w-5 cursor-pointer"
-                    (click)="focusAutoComplete()">
-                <div class="flex justify-content-center align-items-center gap-4">
-                    <i class="pi pi-search text-4xl"></i>
-                    <p class="m-0">Use Search Bar to find movies!</p>
-                </div>
-            </p-card>
-        </ng-template>
-    </ng-container>
+  @if (movieList$ | async; as movieList) {
+    @if (movieList.length) {
+      <app-movie-list [movieList]="movieList"></app-movie-list>
+    } @else {
+      <p>No results found!</p>
+    }
+  } @else {
+    <p-card class="card mt-8 md:w-5 cursor-pointer"
+            (click)="focusAutoComplete()"
+    >
+      <div class="flex justify-content-center align-items-center gap-4">
+        <i class="pi pi-search text-4xl"></i>
+        <p class="m-0">Use Search Bar to find movies!</p>
+      </div>
+    </p-card>
+  }
 </div>

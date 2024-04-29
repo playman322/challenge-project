@@ -3,8 +3,8 @@ import { Movie } from "../../models/movies.model";
 
 export const FavoritesActions = {
   LoadFavorites: createAction('[Favorites State] LoadFavorites'),
-  LoadFavoritesSuccess: createAction('[Favorites State] LoadFavorites Success', props<{ favorites: Movie[] }>()),
-  LoadFavoritesError: createAction('[Favorites State] LoadFavoritesError', props<{ error: Error }>()),
-  SaveFavorites: createAction('[Favorites State] SaveFavorites', props<{ item: Movie }>()),
-  RemoveFromFavorites: createAction('[Favorites State] RemoveFromFavorites', props<{ id: number }>()),
+  LoadFavoritesSuccess: createAction('[Favorites State] LoadFavorites Success', props<{ payload: Movie[] }>()),
+  LoadFavoritesError: createAction('[Favorites State] LoadFavoritesError', props<{ payload: Error }>()),
+  SaveFavorites: createAction('[Favorites State] SaveFavorites', props<{ payload: Movie }>()),
+  RemoveFromFavorites: createAction('[Favorites State] RemoveFromFavorites', props<{ payload: number }>()),
 }

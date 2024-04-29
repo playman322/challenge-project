@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { environment } from "../../environments/environment";
 import { map, Observable } from "rxjs";
-import { MoviesList, MoviesListResponseDTO } from "../../models/movies.model";
+import { Movie, MoviesResponseDTO } from "../../models/movies.model";
 import { MappingService } from "./mapping.service";
 
 @Injectable({
@@ -11,10 +11,10 @@ import { MappingService } from "./mapping.service";
 export class ListService {
   http = inject(HttpClient);
 
-  private readonly moviesListUrl = `${environment.apiUrl}/3/search/movie`
+  private readonly movieListUrl = `${environment.apiUrl}/3/search/movie`
 
-  getMoviesList(query: string): Observable<MoviesList[]> {
-    return this.http.get<MoviesListResponseDTO>(this.moviesListUrl, {
+  getMovieList(query: string): Observable<Movie[]> {
+    return this.http.get<MoviesResponseDTO>(this.movieListUrl, {
       params: {
         query: query,
         include_adult: false,

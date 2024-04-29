@@ -9,7 +9,7 @@ const initialState: AppState = {
   isLoaded: false,
   data: [],
   error: null,
-  moviesList: [],
+  movieList: null as unknown as Movie[],
   movie: {} as Movie,
   theme: Theme.Light,
   isDesktop: false,
@@ -17,51 +17,41 @@ const initialState: AppState = {
 
 const reducer = createReducer(
   initialState,
-  on(AppStateActions.SearchMovies, (state): AppState => {
+  on(AppStateActions.SearchMovieList, (state): AppState => {
     return {
       ...state,
       isLoaded: false
     };
   }),
-  on(AppStateActions.SearchMoviesSuccess, (state, { payload }): AppState => {
+  on(AppStateActions.SearchMovieListSuccess, (state, { payload }): AppState => {
     return {
       ...state,
-      moviesList: payload
+      movieList: payload
     };
   }),
-  on(AppStateActions.SearchMoviesError, (state, { payload }): AppState => {
-    return {
+  on(AppStateActions.SearchMovieListError, (state, { payload }): AppState => ({
       ...state,
       error: payload,
       isLoaded: true
-    };
-  }),
-  on(AppStateActions.GetMovie, (state): AppState => {
-    return {
+  })),
+  on(AppStateActions.GetMovie, (state): AppState => ({
       ...state,
       isLoaded: false
-    };
-  }),
-  on(AppStateActions.GetMovieSuccess, (state, { payload }): AppState => {
-    return {
+  })),
+  on(AppStateActions.GetMovieSuccess, (state, { payload }): AppState => ({
       ...state,
       movie: payload,
       isLoaded: true
-    };
-  }),
-  on(AppStateActions.GetMovieError, (state, { payload }): AppState => {
-    return {
+  })),
+  on(AppStateActions.GetMovieError, (state, { payload }): AppState => ({
       ...state,
       error: payload,
       isLoaded: true
-    };
-  }),
-  on(AppStateActions.ChangeTheme, (state, { payload }): AppState => {
-    return {
+  })),
+  on(AppStateActions.ChangeTheme, (state, { payload }): AppState => ({
       ...state,
       theme: payload
-    };
-  })
+  }))
 );
 
 export function appStateReducer(state: AppState, action: Action): ActionReducer<AppState, Action> {

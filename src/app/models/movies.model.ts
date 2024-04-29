@@ -1,11 +1,11 @@
-export interface MoviesListResponseDTO {
-  results: MoviesListDTO[];
+export interface MoviesResponseDTO {
+  results: MovieDTO[];
   pages: number;
   total_pages: number;
   total_results: number;
 }
 
-export interface MoviesListDTO {
+export interface MovieDTO {
   adult: boolean;
   backdrop_path: string;
   genre_ids: number[];
@@ -20,18 +20,6 @@ export interface MoviesListDTO {
   video: boolean;
   vote_average: number;
   vote_count: number;
-}
-
-export interface MoviesList {
-  id: number;
-  overview?: string;
-  popularity: number;
-  title: string;
-  thumbnail: string;
-  release: string;
-}
-
-export interface MovieDTO extends MoviesListDTO {
   budget: number;
   genres: Genres[];
   homepage: string;
@@ -48,13 +36,20 @@ interface Genres {
   name: string;
 }
 
-export interface Movie extends MoviesList {
-  genres: string[],
-  budget: string,
-  revenue: string,
+export interface Movie {
+  id: number;
+  popularity: number;
+  title: string;
+  thumbnail: string;
+  release: string;
   language: string;
-  homepage: string,
-  country: string,
   voteAverage: number,
   voteCount: number
+  overview?: string;
+  isFavorite?: boolean;
+  genres?: string[],
+  budget?: string,
+  revenue?: string,
+  homepage?: string,
+  country?: string,
 }
