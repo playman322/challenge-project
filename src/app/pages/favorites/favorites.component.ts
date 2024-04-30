@@ -7,6 +7,7 @@ import { SharedModule } from "primeng/api";
 import { MovieListComponent } from "../../shared/components/movie-list/movie-list.component";
 import { FavoritesStateSelectors } from "../../store/favorites/favorites.selectors";
 import { Store } from "@ngrx/store";
+import { BannerComponent } from "../../shared/components/banner/banner.component";
 
 @Component({
   selector: 'app-favorites',
@@ -17,7 +18,8 @@ import { Store } from "@ngrx/store";
     DataViewModule,
     MovieCardComponent,
     SharedModule,
-    MovieListComponent
+    MovieListComponent,
+    BannerComponent
   ],
   templateUrl: './favorites.component.html',
   styleUrl: './favorites.component.less',

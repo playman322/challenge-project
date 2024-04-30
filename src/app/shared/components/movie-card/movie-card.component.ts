@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
 import { NgClass } from "@angular/common";
 import { Movie } from "../../../models/movies.model";
 import { LanguageMapperPipe } from "../../pipes/language-mapper.pipe";
@@ -7,6 +7,7 @@ import { Store } from "@ngrx/store";
 import { FavoritesActions } from "../../../store/favorites/favorites.actions";
 import { FavoritesStateSelectors } from "../../../store/favorites/favorites.selectors";
 import { Router, RouterLink } from "@angular/router";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-movie-card',
@@ -27,6 +28,7 @@ export class MovieCardComponent implements OnInit{
   protected readonly environment = environment;
   private store = inject(Store);
   private router = inject(Router);
+  private destroyRef = inject(DestroyRef)
   private isFavorite: boolean = false;
 
   isDetailsPage: boolean = false;
@@ -36,7 +38,13 @@ export class MovieCardComponent implements OnInit{
     this.isDetailsPage = this.router.url.startsWith('/details');
   }
 
-  onFavoritesClick() {
+  onCardClick() {
+    this.router.navigateByUrl(`/details/${this.movie.id}`);
+  }
+
+  onFavoritesClick(e: Event) {
+    e.stopPropagation();
+
     this.store.dispatch(this.isFavorite ?
       FavoritesActions.RemoveFromFavorites({ payload: this.movie.id }) :
       FavoritesActions.SaveFavorites({ payload: this.movie })
@@ -44,13 +52,12 @@ export class MovieCardComponent implements OnInit{
   }
 
   isInFavorites(item: Movie): boolean {
-    this.favorites$.subscribe(favorites => {
+    this.favorites$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(favorites => {
       this.isFavorite = favorites.some(favorite => favorite.id === item.id);
     });
-    return this.isFavorite;
-  }
 
-  routerLink(): any {
-    console.log(1)
+    return this.isFavorite;
   }
 }

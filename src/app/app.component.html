@@ -1,11 +1,5 @@
 <div class="page-container">
   <app-header class="block"></app-header>
   <app-navbar class="fixed bottom-0 w-full z-2"></app-navbar>
-  @if (isLoaded$) {
-    <router-outlet></router-outlet>
-  } @else {
-    <div class="page-loader">
-      <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" fill="var(--surface-ground)" animationDuration=".7s"></p-progressSpinner>
-    </div>
-  }
+  <router-outlet></router-outlet>
 </div>
