@@ -1,13 +1,9 @@
 <div class="flex flex-wrap w-full justify-content-center align-items-center flex-column">
-  <p-autoComplete #autoComplete
-                  class="m-4"
-                  [suggestions]="recentSearches"
-                  [(ngModel)]="query"
-                  (keyup.enter)="onKeyUp()"
-                  (onSelect)="search()"
-                  (completeMethod)="showRecentSearches()"
-  >
-  </p-autoComplete>
+  <span class="p-input-icon-left p-float-label m-6">
+    <i class="pi pi-search"></i>
+    <input type="text" id="inputElement" #inputElement pInputText [(ngModel)]="query" (keyup.enter)="search()"/>
+    <label for="inputElement">Type here</label>
+  </span>
 
   @if (movieList$ | async; as movieList) {
     @if (movieList.length) {
@@ -16,10 +12,10 @@
       <p>No results found!</p>
     }
   } @else {
-    <p-card class="card mt-8 md:w-5 cursor-pointer"
-            (click)="focusAutoComplete()"
+    <p-card class="card mt-8  cursor-pointer"
+            (click)="focusInput()"
     >
-      <div class="flex justify-content-center align-items-center gap-4">
+      <div class="flex justify-content-center align-items-center gap-4 md:mx-5">
         <i class="pi pi-search text-4xl"></i>
         <p class="m-0">Use Search Bar to find movies!</p>
       </div>

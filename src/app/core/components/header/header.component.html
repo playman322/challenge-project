@@ -3,12 +3,12 @@
       src="./assets/logo.png"
       height="40"
       class="navbar-icon cursor-pointer"
-      alt="Pronet"
+      alt="Imdb"
       routerLink="/list"
       [ngStyle]="(currentTheme$ | async) === Theme.Light ? null : {'filter': 'invert(1) hue-rotate(150deg)'}"
     />
     <i
-      style="font-size: 1.5rem; cursor: pointer"
+      class="cursor-pointer text-3xl"
       (click)="toggleTheme()"
       [ngClass]="(currentTheme$ | async) === Theme.Light ? 'pi pi-moon' : 'pi pi-sun'"
     ></i>

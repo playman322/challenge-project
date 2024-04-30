@@ -3,6 +3,7 @@ import { DataViewModule } from "primeng/dataview";
 import { MovieCardComponent } from "../movie-card/movie-card.component";
 import { RouterLink } from "@angular/router";
 import { Movie } from "../../../models/movies.model";
+import { CardModule } from "primeng/card";
 
 @Component({
   selector: 'app-movie-list',
@@ -10,7 +11,8 @@ import { Movie } from "../../../models/movies.model";
   imports: [
     DataViewModule,
     MovieCardComponent,
-    RouterLink
+    RouterLink,
+    CardModule
   ],
   templateUrl: './movie-list.component.html',
   styleUrl: './movie-list.component.less',

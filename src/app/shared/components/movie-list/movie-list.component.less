@@ -1,7 +1,9 @@
 @import "./../../../less/variables.less";
 
+// Override native primeng styles due to poor accessibility
 ::ng-deep .p-dataview {
   display: flex;
+  width: 100%;
   flex-direction: column;
   justify-content: space-between;
 }

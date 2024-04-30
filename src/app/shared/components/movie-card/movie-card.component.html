@@ -1,5 +1,5 @@
-<div class="flex flex-row align-items-center p-3 gap-3"
-     [ngClass]="{ 'border-top-1 surface-border': isFirst, 'flex-column mb-3': isDetailsPage }"
+<div class="flex flex-row align-items-center p-3 gap-3 cursor-pointer"
+     [ngClass]="{ 'border-top-1 surface-border': isFirst, 'flex-column mb-3': isDetailsPage, 'hover:bg-black-alpha-10': !isDetailsPage }"
 >
   @if (movie.thumbnail) {
     <img class="shadow-2 block xl:block mx-auto border-round"
