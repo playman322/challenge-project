@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, inject, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AutoCompleteModule } from "primeng/autocomplete";
 import { AppStateSelectors } from "../../store/app-state/app-state.selectors";
 import { Store } from "@ngrx/store";
@@ -13,6 +13,9 @@ import { ButtonModule } from "primeng/button";
 import { CardModule } from "primeng/card";
 import { MovieListComponent } from "../../shared/components/movie-list/movie-list.component";
 import { InputTextModule } from "primeng/inputtext";
+import { ProgressSpinnerModule } from "primeng/progressspinner";
+import { LoaderComponent } from "../../shared/components/loader/loader.component";
+import { BannerComponent } from "../../shared/components/banner/banner.component";
 
 @Component({
   selector: 'app-list',
@@ -29,7 +32,10 @@ import { InputTextModule } from "primeng/inputtext";
     CardModule,
     RouterLink,
     MovieListComponent,
-    InputTextModule
+    InputTextModule,
+    ProgressSpinnerModule,
+    LoaderComponent,
+    BannerComponent
   ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.less',
@@ -40,18 +46,9 @@ export class ListComponent {
 
   query = '';
   movieList$ = this.store.select(AppStateSelectors.selectMovieList);
-
-  @ViewChild('inputElement') inputElement: ElementRef;
+  isLoading$ = this.store.select(AppStateSelectors.selectIsLoading);
 
   search(): void {
-    if (!this.query) {
-      return;
-    }
-
     this.store.dispatch(AppStateActions.SearchMovieList({ payload: this.query }));
-  }
-
-  focusInput() {
-    this.inputElement.nativeElement.focus();
   }
 }

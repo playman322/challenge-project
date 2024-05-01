@@ -3,9 +3,9 @@ import { createFeatureSelector, createSelector } from "@ngrx/store";
 
 const selectAppState = createFeatureSelector<AppState>('appState');
 
-export const selectIsAppLoaded = createSelector(
+export const selectIsLoading = createSelector(
   selectAppState,
-  (state: AppState) => state.isLoaded
+  (state: AppState) => state.isLoading
 );
 
 export const selectMovieList = createSelector(
@@ -24,7 +24,7 @@ export const selectTheme = createSelector(
 );
 
 export const AppStateSelectors = {
-  selectIsAppLoaded,
+  selectIsLoading,
   selectMovieList,
   selectMovie,
   selectTheme

@@ -6,13 +6,11 @@ import { Theme } from "../../models/theme.model";
 import { Movie } from "../../models/movies.model";
 
 const initialState: AppState = {
-  isLoaded: false,
-  data: [],
+  isLoading: false,
   error: null,
-  movieList: null as unknown as Movie[],
+  movieList: [],
   movie: {} as Movie,
   theme: Theme.Light,
-  isDesktop: false,
 } as AppState;
 
 const reducer = createReducer(
@@ -20,33 +18,34 @@ const reducer = createReducer(
   on(AppStateActions.SearchMovieList, (state): AppState => {
     return {
       ...state,
-      isLoaded: false
+      isLoading: true,
     };
   }),
   on(AppStateActions.SearchMovieListSuccess, (state, { payload }): AppState => {
     return {
       ...state,
-      movieList: payload
+      movieList: payload,
+      isLoading: false
     };
   }),
   on(AppStateActions.SearchMovieListError, (state, { payload }): AppState => ({
       ...state,
       error: payload,
-      isLoaded: true
+      isLoading: false
   })),
   on(AppStateActions.GetMovie, (state): AppState => ({
       ...state,
-      isLoaded: false
+      isLoading: true,
   })),
   on(AppStateActions.GetMovieSuccess, (state, { payload }): AppState => ({
       ...state,
       movie: payload,
-      isLoaded: true
+      isLoading: false
   })),
   on(AppStateActions.GetMovieError, (state, { payload }): AppState => ({
       ...state,
       error: payload,
-      isLoaded: true
+      isLoading: false
   })),
   on(AppStateActions.ChangeTheme, (state, { payload }): AppState => ({
       ...state,

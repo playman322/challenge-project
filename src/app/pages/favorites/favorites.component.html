@@ -1,6 +1,10 @@
 @if (favoriteMovies$ | async; as favoriteMovies) {
-  <app-movie-list [movieList]="favoriteMovies">
-  </app-movie-list>
-} @else {
-  <p>You haven't added anything to favorites yet</p>
+  @if (favoriteMovies.length) {
+    <app-movie-list [movieList]="favoriteMovies">
+    </app-movie-list>
+  } @else {
+    <app-banner [text]="'No favorites!'">
+      <i class="pi pi-heart text-4xl"></i>
+    </app-banner>
+  }
 }

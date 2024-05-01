@@ -1,8 +1,9 @@
 <div class="flex flex-row align-items-center p-3 gap-3 cursor-pointer"
      [ngClass]="{ 'border-top-1 surface-border': isFirst, 'flex-column mb-3': isDetailsPage, 'hover:bg-black-alpha-10': !isDetailsPage }"
+     (click)="onCardClick()"
 >
   @if (movie.thumbnail) {
-    <img class="shadow-2 block xl:block mx-auto border-round"
+    <img class="thumbnail shadow-2 block xl:block mx-auto border-round"
          [src]="environment.imageBaseUrl + movie.thumbnail"
          [alt]="movie.title"
          [ngClass]="{ 'w-2 max-w-4rem': !isDetailsPage }"
@@ -12,8 +13,7 @@
   <div class="flex flex-row justify-content-between align-items-start flex-1 gap-2"
        [ngClass]="{ 'indent-bottom': isDetailsPage }"
   >
-    <div class="flex flex-column align-items-start gap-1"
-         [routerLink]="['/details', movie.id]">
+    <div class="flex flex-column align-items-start gap-1">
       <b>{{ movie.title }}</b>
       <span>{{ movie.release }}</span>
       @if (isDetailsPage) {
@@ -29,7 +29,7 @@
     @if (!isDetailsPage) {
       <i class="pi pi-heart-fill align-self-center"
          [ngClass]="{'text-red-500': isInFavorites(movie)}"
-         (click)="onFavoritesClick()">
+         (click)="onFavoritesClick($event)">
       </i>
     }
   </div>
