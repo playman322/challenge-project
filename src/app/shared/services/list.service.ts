@@ -17,6 +17,7 @@ export class ListService {
     return this.http.get<MoviesResponseDTO>(this.movieListUrl, {
       params: {
         query: query,
+        api_key: environment.apiKey,
         include_adult: false,
         language: 'en-US'
       }

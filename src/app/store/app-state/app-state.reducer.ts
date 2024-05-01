@@ -11,6 +11,7 @@ const initialState: AppState = {
   movieList: [],
   movie: {} as Movie,
   theme: Theme.Light,
+  isLoggedIn: false,
 } as AppState;
 
 const reducer = createReducer(
@@ -50,6 +51,10 @@ const reducer = createReducer(
   on(AppStateActions.ChangeTheme, (state, { payload }): AppState => ({
       ...state,
       theme: payload
+  })),
+  on(AppStateActions.LogIn, (state, { payload }): AppState => ({
+    ...state,
+    isLoggedIn: payload
   }))
 );
 
