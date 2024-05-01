@@ -9,12 +9,14 @@ import { provideStore } from "@ngrx/store";
 import { reducers } from "./store/reducer";
 import { provideEffects } from "@ngrx/effects";
 import { provideAnimationsAsync } from "@angular/platform-browser/animations/async";
+import { MessageService } from "primeng/api";
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideStore(reducers),
     provideAnimationsAsync(),
+    MessageService,
     provideEffects([AppStateEffects]),
     provideHttpClient(
       withInterceptors([

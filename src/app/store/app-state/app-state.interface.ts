@@ -7,4 +7,5 @@ export interface AppState {
   movieList: Movie[];
   movie: Movie;
   theme: Theme | string;
+  isLoggedIn: boolean;
 }

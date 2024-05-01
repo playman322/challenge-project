@@ -10,4 +10,5 @@ export const AppStateActions = {
   GetMovieSuccess: createAction('[Details State] SearchDataSuccess', props<{ payload: Movie }>()),
   GetMovieError: createAction('[Details State] SearchDataError', props<{ payload: Error }>()),
   ChangeTheme: createAction('[App State] ChangeTheme', props<{ payload: Theme | string }>()),
+  LogIn: createAction('[App State] LogIn', props<{ payload: boolean}>())
 };

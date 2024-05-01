@@ -1,27 +1,32 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { AuthToken } from "../../models/auth.model";
 
-@Injectable({providedIn: 'root'})
+const AUTH_API = 'http://localhost:4201/api/auth/';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
+
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
-  private authSecretKey = 'Bearer Token';
-  private isAuthenticated = false;
+  private http = inject(HttpClient);
 
-  login(username: string, password: string): boolean {
-    if (username === 'Maksym Niekrasov' && password === 'Pass@123') {
-      const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpheWRlZXAgUGF0aWwiLCJpYXQiOjE1MTYyMzkwMjJ9.yt3EOXf60R62Mef2oFpbFh2ihkP5qZ4fM8bjVnF8YhA'; // Generate or receive the token from your server
-      localStorage.setItem(this.authSecretKey, authToken);
-      this.isAuthenticated = true;
-      return true;
-    }
-
-    return false;
+  login(username: string, password: string): Observable<AuthToken> {
+    return this.http.post<AuthToken>(AUTH_API + 'login', {
+      username,
+      password
+    }, httpOptions);
   }
 
-  logout(): void {
-    localStorage.removeItem(this.authSecretKey);
-    this.isAuthenticated = false;
-  }
-
-  isAuthenticatedUser(): boolean {
-    return this.isAuthenticated;
+  register(username: string, email: string, password: string): Observable<any> {
+    return this.http.post(AUTH_API + 'register', {
+      username,
+      email,
+      password
+    }, httpOptions);
   }
 }

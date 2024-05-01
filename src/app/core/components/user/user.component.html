@@ -1,0 +1,13 @@
+<div class="flex justify-content-center flex-column align-items-center mt-3">
+  <div class="flex gap-2 w-8 justify-content-around">
+    <p-button label="Logout" class="p-button-primary select-none" (click)="logout()"></p-button>
+    <p-button label="Register" class="p-button-primary select-none" [routerLink]="['/register']"></p-button>
+  </div>
+  <p-card header="Profile" class="w-8 mt-8">
+    <p-divider type="solid"></p-divider>
+    <div class="flex flex-column justify-content-start gap-1 md:mx-5">
+      <span><b>User: </b>{{ userName }}</span>
+      <span class="profile-token"><b>Token: </b>{{ userToken }}</span>
+    </div>
+  </p-card>
+</div>

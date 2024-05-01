@@ -16,7 +16,8 @@ export class DetailsService {
   getMovie(id: number): Observable<Movie> {
     return this.http.get<MovieDTO>(this.movieUrl + id, {
       params: {
-        language: 'en-US'
+        language: 'en-US',
+        api_key: environment.apiKey,
       }
     }).pipe(
       map((movie) => MappingService.mapMovieDTOtoMovie(movie)),

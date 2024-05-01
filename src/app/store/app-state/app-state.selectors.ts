@@ -23,9 +23,15 @@ export const selectTheme = createSelector(
   (state: AppState) => state.theme
 );
 
+export const selectIsLoggedIn = createSelector(
+  selectAppState,
+  (state: AppState) => state.isLoggedIn
+);
+
 export const AppStateSelectors = {
   selectIsLoading,
   selectMovieList,
   selectMovie,
-  selectTheme
+  selectTheme,
+  selectIsLoggedIn
 }
