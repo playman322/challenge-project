@@ -3,9 +3,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthToken } from "../../models/auth.model";
 
-const AUTH_API = 'http://localhost:4201/api/auth/';
+export const AUTH_API = 'http://localhost:4201/api/auth/';
 
-const httpOptions = {
+export const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 

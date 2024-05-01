@@ -8,7 +8,6 @@ export interface MoviesResponseDTO {
 export interface MovieDTO {
   adult: boolean;
   backdrop_path: string;
-  genre_ids: number[];
   id: number;
   original_language: string;
   original_title: string;
@@ -16,8 +15,6 @@ export interface MovieDTO {
   popularity: number;
   poster_path: string;
   release_date: string;
-  title: string;
-  video: boolean;
   vote_average: number;
   vote_count: number;
   budget: number;
@@ -26,9 +23,6 @@ export interface MovieDTO {
   imdb_id: string;
   origin_country: string[];
   revenue: number;
-  runtime: number;
-  status: string;
-  tagline: string;
 }
 
 interface Genres {

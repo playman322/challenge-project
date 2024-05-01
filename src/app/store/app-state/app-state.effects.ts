@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { catchError, map, of, switchMap } from "rxjs";
+import { catchError, map, of, switchMap, tap } from "rxjs";
 import { AppStateActions } from "./app-state.actions";
 import { ListService } from "../../shared/services/list.service";
 import { DetailsService } from "../../shared/services/details.service";
@@ -30,6 +30,7 @@ export class AppStateEffects {
       ofType(AppStateActions.GetMovie),
       switchMap(({ payload }) =>
         this.detailsService.getMovie(payload).pipe(
+          tap((data) => console.log(data)),
           map((data) => AppStateActions.GetMovieSuccess({ payload: data }))
         )
       ),
