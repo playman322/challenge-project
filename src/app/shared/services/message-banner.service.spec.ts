@@ -1,13 +1,15 @@
 import { TestBed } from '@angular/core/testing';
+import { MessageBannerService } from './message-banner.service';
+import { MessageService } from 'primeng/api';
 
-import { MessageService } from './message-banner.service';
-
-describe('MessageService', () => {
-  let service: MessageService;
+describe('MessageBannerService', () => {
+  let service: MessageBannerService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(MessageService);
+    TestBed.configureTestingModule({
+      providers: [MessageBannerService, { provide: MessageService, useValue: {} }]
+    });
+    service = TestBed.inject(MessageBannerService);
   });
 
   it('should be created', () => {
