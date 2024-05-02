@@ -28,7 +28,7 @@ export class DetailsComponent implements OnInit{
   movie$ = this.store.select(DetailsStateSelectors.selectMovie);
   isLoading$ = this.store.select(DetailsStateSelectors.selectIsLoading);
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       const selectedId = Number(params.get('id'));
 

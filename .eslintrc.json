@@ -15,6 +15,33 @@
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
+        "@typescript-eslint/no-explicit-any": "off",
+        "brace-style": ["error", "1tbs"],
+        "func-style": "off",
+        "no-console": ["error", { "allow": ["warn", "error"] }],
+        "curly": ["error", "multi-line"],
+        "comma-dangle": ["error", "only-multiline"],
+        "space-before-function-paren": ["warn", {
+          "anonymous": "never",
+          "named": "never",
+          "asyncArrow": "always"
+        }],
+        "default-case": "off",
+        "no-return-assign": "off",
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off",
+        "@typescript-eslint/no-unsafe-return": "off",
+        "@typescript-eslint/no-unsafe-argument": "off",
+        "@typescript-eslint/no-unused-vars": [
+          "warn", { "varsIgnorePattern": "[A-Z]", "argsIgnorePattern": "^_" }],
+        "@typescript-eslint/explicit-function-return-type": [
+          "warn",
+          {
+            "allowExpressions": true,
+            "allowTypedFunctionExpressions": true
+          }
+        ],
         "@angular-eslint/directive-selector": [
           "error",
           {

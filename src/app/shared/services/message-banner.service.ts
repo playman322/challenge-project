@@ -7,7 +7,7 @@ import { MessageService } from "primeng/api";
 export class MessageBannerService {
   private messageService = inject(MessageService);
 
-  displayMessage (message: string, type: string): void {
+  displayMessage(message: string, type: string): void {
     this.messageService.add({
       severity: type.toLowerCase(),
       summary: type,
