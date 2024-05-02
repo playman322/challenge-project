@@ -33,15 +33,15 @@ export class MovieCardComponent implements OnInit{
   isDetailsPage: boolean = false;
   favorites$ = this.store.select(FavoritesStateSelectors.selectFavorites);
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.isDetailsPage = this.router.url.startsWith('/details');
   }
 
-  onCardClick() {
+  onCardClick(): void {
     this.router.navigateByUrl(`/details/${this.movie.id}`);
   }
 
-  onFavoritesClick(e: Event) {
+  onFavoritesClick(e: Event): void {
     e.stopPropagation();
 
     this.store.dispatch(this.isFavorite ?
