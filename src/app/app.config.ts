@@ -11,7 +11,6 @@ import { provideAnimationsAsync } from "@angular/platform-browser/animations/asy
 import { MessageService } from "primeng/api";
 import { DetailsStateEffects } from "./store/details-state/details-state.effects";
 import { ListStateEffects } from "./store/list-state/list-state.effects";
-import { errorHandlingInterceptor } from "./core/api/interceptors";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,8 +21,7 @@ export const appConfig: ApplicationConfig = {
     provideEffects([DetailsStateEffects, ListStateEffects]),
     provideHttpClient(
       withInterceptors([
-        authInterceptor,
-        errorHandlingInterceptor,
+        authInterceptor
       ]),
     )]
 };

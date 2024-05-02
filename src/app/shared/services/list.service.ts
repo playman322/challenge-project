@@ -14,7 +14,7 @@ export class ListService {
   private readonly movieListUrl = `${environment.apiUrl}/3/search/movie`
 
   getMovieList(query: string): Observable<Movie[]> {
-    return this.http.get<MoviesResponseDTO>(this.movieListUrl + 1, {
+    return this.http.get<MoviesResponseDTO>(this.movieListUrl, {
       params: {
         query: query,
         api_key: environment.apiKey,

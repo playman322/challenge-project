@@ -52,6 +52,7 @@ export class LoginComponent implements OnInit {
         this.tokenStorageService.saveToken(data.access_token);
         this.tokenStorageService.saveUser(username);
         this.store.dispatch(AppStateActions.LogIn({ payload: true }));
+        this.messageBannerService.displayMessage(MessageBanner.LoginSuccess, MessageType.Success);
         this.router.navigate([''])
       }),
       catchError(err => {
