@@ -4,18 +4,17 @@ import { Movie } from "../../../models/movies.model";
 import { LanguageMapperPipe } from "../../pipes/language-mapper.pipe";
 import { environment } from "../../../environments/environment";
 import { Store } from "@ngrx/store";
-import { FavoritesActions } from "../../../store/favorites/favorites.actions";
-import { FavoritesStateSelectors } from "../../../store/favorites/favorites.selectors";
-import { Router, RouterLink } from "@angular/router";
+import { FavoritesStateActions } from "../../../store/favorites-state/favorites-state.actions";
+import { FavoritesStateSelectors } from "../../../store/favorites-state/favorites-state.selectors";
+import { Router } from "@angular/router";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-movie-card',
   standalone: true,
   imports: [
-    NgClass,
     LanguageMapperPipe,
-    RouterLink
+    NgClass
   ],
   templateUrl: './movie-card.component.html',
   styleUrl: './movie-card.component.less',
@@ -46,8 +45,8 @@ export class MovieCardComponent implements OnInit{
     e.stopPropagation();
 
     this.store.dispatch(this.isFavorite ?
-      FavoritesActions.RemoveFromFavorites({ payload: this.movie.id }) :
-      FavoritesActions.SaveFavorites({ payload: this.movie })
+      FavoritesStateActions.RemoveFromFavorites({ payload: this.movie.id }) :
+      FavoritesStateActions.SaveFavorites({ payload: this.movie })
     );
   }
 

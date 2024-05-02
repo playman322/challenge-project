@@ -1,8 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { FavoritesState } from "./favorites.interface";
-import { Movie } from "../../models/movies.model";
+import { FavoritesState } from "./favorites-state.interface";
 
-export const selectFavoritesState = createFeatureSelector<FavoritesState>('favoritesState');
+const selectFavoritesState = createFeatureSelector<FavoritesState>('favoritesState');
 
 export const selectFavorites = createSelector(
   selectFavoritesState,
@@ -11,7 +10,7 @@ export const selectFavorites = createSelector(
 
 export const selectIsFavoritesLoaded = createSelector(
   selectFavoritesState,
-  (state: FavoritesState) => state.isLoaded
+  (state: FavoritesState) => state.isLoading
 );
 
 export const selectFavoritesError = createSelector(
@@ -19,14 +18,14 @@ export const selectFavoritesError = createSelector(
   (state: FavoritesState) => state.error
 );
 
-export const selectFavoriteById = (id: number) => createSelector(
-  selectFavorites,
-  (favorites: Movie[]) => favorites.find(movie => movie.id === id)
+export const selectIsLoading = createSelector(
+  selectFavoritesState,
+  (state: FavoritesState) => state.isLoading
 );
 
 export const FavoritesStateSelectors = {
   selectFavorites,
   selectIsFavoritesLoaded,
   selectFavoritesError,
-  selectFavoriteById,
+  selectIsLoading
 }

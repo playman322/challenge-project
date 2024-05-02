@@ -1,24 +1,20 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { AsyncPipe } from "@angular/common";
-import { AppStateSelectors } from "../../store/app-state/app-state.selectors";
 import { Store } from "@ngrx/store";
-import { AppStateActions } from "../../store/app-state/app-state.actions";
 import { ActivatedRoute } from "@angular/router";
 import { MovieCardComponent } from "../../shared/components/movie-card/movie-card.component";
-import { LanguageMapperPipe } from "../../shared/pipes/language-mapper.pipe";
 import { LoaderComponent } from "../../shared/components/loader/loader.component";
-import { CardModule } from "primeng/card";
 import { BannerComponent } from "../../shared/components/banner/banner.component";
+import { DetailsStateSelectors } from "../../store/details-state/details-state.selectors";
+import { DetailsStateActions } from "../../store/details-state/details-state.actions";
 
 @Component({
   selector: 'app-details',
   standalone: true,
   imports: [
+    LoaderComponent,
     AsyncPipe,
     MovieCardComponent,
-    LanguageMapperPipe,
-    LoaderComponent,
-    CardModule,
     BannerComponent
   ],
   templateUrl: './details.component.html',
@@ -29,15 +25,15 @@ export class DetailsComponent implements OnInit{
   private store = inject(Store);
   private route = inject(ActivatedRoute);
 
-  movie$ = this.store.select(AppStateSelectors.selectMovie);
-  isLoading$ = this.store.select(AppStateSelectors.selectIsLoading);
+  movie$ = this.store.select(DetailsStateSelectors.selectMovie);
+  isLoading$ = this.store.select(DetailsStateSelectors.selectIsLoading);
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       const selectedId = Number(params.get('id'));
 
       if (selectedId) {
-        this.store.dispatch(AppStateActions.GetMovie({ payload: selectedId }));
+        this.store.dispatch(DetailsStateActions.GetMovie({ payload: selectedId }));
       }
     });
   }

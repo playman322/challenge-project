@@ -1,11 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AsyncPipe } from "@angular/common";
-import { CardModule } from "primeng/card";
-import { DataViewModule } from "primeng/dataview";
-import { MovieCardComponent } from "../../shared/components/movie-card/movie-card.component";
-import { SharedModule } from "primeng/api";
 import { MovieListComponent } from "../../shared/components/movie-list/movie-list.component";
-import { FavoritesStateSelectors } from "../../store/favorites/favorites.selectors";
+import { FavoritesStateSelectors } from "../../store/favorites-state/favorites-state.selectors";
 import { Store } from "@ngrx/store";
 import { BannerComponent } from "../../shared/components/banner/banner.component";
 
@@ -13,13 +9,9 @@ import { BannerComponent } from "../../shared/components/banner/banner.component
   selector: 'app-favorites',
   standalone: true,
   imports: [
-    AsyncPipe,
-    CardModule,
-    DataViewModule,
-    MovieCardComponent,
-    SharedModule,
+    BannerComponent,
     MovieListComponent,
-    BannerComponent
+    AsyncPipe
   ],
   templateUrl: './favorites.component.html',
   styleUrl: './favorites.component.less',

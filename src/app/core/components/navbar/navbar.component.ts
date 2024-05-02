@@ -2,8 +2,8 @@ import { Component, inject } from '@angular/core';
 import { ToolbarModule } from "primeng/toolbar";
 import { RouterLink, RouterLinkActive } from "@angular/router";
 import { Store } from "@ngrx/store";
-import { AppStateSelectors } from "../../../store/app-state/app-state.selectors";
 import { AsyncPipe } from "@angular/common";
+import { DetailsStateSelectors } from "../../../store/details-state/details-state.selectors";
 
 @Component({
   selector: 'app-navbar',
@@ -20,5 +20,5 @@ import { AsyncPipe } from "@angular/common";
 export class NavbarComponent {
   private store = inject(Store)
 
-  movie$ = this.store.select(AppStateSelectors.selectMovie);
+  movie$ = this.store.select(DetailsStateSelectors.selectMovie);
 }

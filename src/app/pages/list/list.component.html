@@ -6,7 +6,9 @@
   </span>
 
   @if (movieList$ | async; as movieList) {
-    @if (movieList.length) {
+    @if (isLoading$ | async) {
+      <app-loader></app-loader>
+    } @else if (movieList.length) {
       <app-movie-list [movieList]="movieList"></app-movie-list>
     } @else {
       <app-banner [text]="'No Results! Use Search Bar!'">
